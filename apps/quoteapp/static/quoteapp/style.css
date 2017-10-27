@@ -1,0 +1,40 @@
+p {
+	color: darkblue;
+}
+
+.sectionblock {
+	border: 2px solid black;
+	display: inline-block;
+	width: 300px;
+	vertical-align: top;
+	margin: 10px;
+	padding: 10px;
+	text-align: center;
+}
+
+.quotebox {
+	border: 1px dotted black;
+	margin: 10px;
+	padding: 10px;
+	max-width: 500px;
+}
+
+.author {
+	font-weight: bold;
+}
+
+.quotation {
+	font-style: italic;
+}
+
+.owner {
+	font-size: 10px;
+}
+
+.bigname {
+	color: blue;
+}
+
+h2 {
+	display: inline-block;
+}

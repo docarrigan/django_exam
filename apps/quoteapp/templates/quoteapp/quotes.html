@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>QuoteBoard</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	{% load static %}
+      <link rel="stylesheet" href="{% static 'quoteapp/style.css' %}" media="screen" title="no title"  charset="utf-8">  
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  <a class="navbar-brand" href="/">QUOTES</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	    <div class="navbar-nav">
+	      <a class="nav-item nav-link" href="/quotes">QuoteBoard</a>
+	      <a class="nav-item nav-link disabled" href="/logout">Logout</a>
+	    </div>
+	  </div>
+		<p style="font-weight: bold;"> You are logged in as {{users.name}}</p>
+	</nav>
+
+	<div class="sectionblock">
+		<h4 style="margin:20px;""> Add New Quote</h4>
+			<form action="/addquote" method="POST">
+					{% csrf_token %}
+					<p>Quote By: <br><input type="text" name="quoteby"></p>
+					<p>Quotation: <br><textarea rows="3" cols="20" name="quotation"></textarea></p>
+					<input type="submit" value="Add Quote"></p>
+				</form>
+			{% for message in messages %}
+				{{message}}
+			{% endfor %}
+	</div>
+
+	<div class="sectionblock">
+		<h4 style="margin:20px;""> Quotable Quotes</h4>
+		<div class="singlequote">
+			{% for quote in allquotes %}
+			      <div class="quotebox">
+				    <p class="author">{{quote.quoteby}}</p>
+				    <p class="quotation">{{quote.quotation}}</p>
+				    <p class="owner">Posted by:<a href="/user/{{quote.owner.id}}">{{quote.owner.name}}</a></p>
+				    <a href="/favorite/{{quote.id}}">Add To My Favorites</a>
+				  </div>
+		    {% endfor %}
+		</div>
+	</div>
+
+	<div class="sectionblock">
+		<h4 style="margin:20px;""> Favorite Quotes</h4>
+		<div class="singlequote">
+			{% for quote in favquotes %}
+			<div class="quotebox">
+			    <p class="author">{{quote.quoteby}}</p>
+			    <p class="quotation">{{quote.quotation}}</p>
+				<p class="owner">Posted by:<a href="/user/{{quote.owner.id}}">{{quote.owner.name}}</a></p>
+			      <a href="/remove/{{quote.id}}">Remove From My Favorites</a>
+			</div>
+		    {% endfor %}
+		</div>
+	</div>
+</body>
+</html>
